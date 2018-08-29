@@ -3,20 +3,27 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 
 class CoinDetail extends React.Component {
     render() {
-        let date = new Date();
-        let now = date.toLocaleString()
-
         return (
             <View style={styles.container}>
                 <Image
-                    style={{ width: 50, height: 50 }}
+                    style={{ width: 50, height: 50, marginRight: 5, marginLeft: 5 }}
                     source={{ uri: 'https://bitcoin.org/img/icons/opengraph.png' }}
                 />
-                <Text style={[styles.text, { flex: 1 }]}>{'#' + (this.props.rank || 'Rank')}</Text>
-                <Text style={[styles.text, { flex: 1 }]}>{this.props.name || 'Name'}</Text>
-                <Text style={[styles.text, { flex: 1 }]}>{'Price: ' + (this.props.price || 0)}</Text>
-                <Text style={[styles.text, { flex: 1 }]}>{'Volume: ' + (this.props.volumn || 0)}</Text>
-                <Text style={[styles.text, { flex: 1 }]}>{'Updated: ' + (Date(this.props.time) || now)}</Text>
+                <Text style={[styles.rank]}>{'#' + (this.props.rank || 'Rank')}</Text>
+                <View style={{ flexDirection: 'column' }}>
+                    <View>
+                        <Text style={[styles.name]}>{this.props.name || 'Name'}</Text>
+                        <Text style={[styles.volumn]}>{'Volume: ' + (this.props.volumn || 0)}</Text>
+                    </View>
+                    <View style={{
+                        flexDirection: 'row',
+                        marginTop: 10,
+                        marginBottom: 5,
+                        alignItems: 'center'
+                    }}>
+                        <Text>$:</Text><Text style={[styles.price]}>{(this.props.price || 0)}</Text>
+                    </View>
+                </View>
             </View>
         )
     }
@@ -27,15 +34,37 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 80,
         flexDirection: 'row', // row
-        backgroundColor: 'blue',
+        backgroundColor: 'white',
         alignItems: 'center',
-        justifyContent: 'space-around', // center, space-around
+        // justifyContent: 'space-around', // center, space-around
         marginTop: 5,
         marginBottom: 5,
+        borderBottomColor: '#bbb',
+        borderBottomWidth: 1,
     },
     text: {
-        color: 'white',
-    }
+        color: 'black',
+    },
+    rank: {
+        fontSize: 20,
+        marginRight: 15,
+    },
+    name: {
+        fontSize: 20,
+        marginRight: 15,
+    },
+    price: {
+        marginLeft: 5,
+        fontSize: 17,
+        fontWeight: 'bold',
+        marginRight: 15,
+    },
+    volumn: {
+        marginTop: 3,
+        fontSize: 13,
+        color: '#a8a5a5',
+        marginRight: 15,
+    },
 });
 
 export default CoinDetail;
