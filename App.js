@@ -4,6 +4,20 @@ import CoinView from './components/CoinView';
 import TopBar from './components/TopBar';
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      refreshDate: '-',
+    };
+  }
+
+  _setRefreshDate(date) {
+    console.log('Updated: '+ date);
+    this.setState({
+      refreshDate: date,
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -12,8 +26,10 @@ export default class App extends React.Component {
           backgroundColor="blue"
           barStyle="light-content"
         />
-        <TopBar title="Coin Current"/>
-        <CoinView style={styles.coinView} />
+      <TopBar title="Coin Market Price" refreshDate={this.state.refreshDate} />
+        <CoinView
+          refreshDate={(date) => this._setRefreshDate(date)}
+          style={styles.coinView} />
       </View>
     );
   }
@@ -32,7 +48,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column', // row
     backgroundColor: 'skyblue',
-    alignItems: 'center',
+    // alignItems: 'center',
     // justifyContent: 'space-around', // center, space-around
   }
 });
